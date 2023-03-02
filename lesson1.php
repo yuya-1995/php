@@ -4,8 +4,8 @@
 
 $country = ['日本','アメリカ','イギリス','フランス'];
 
-foreach($country as $value){
-    echo "要素番号：".$value."<br>";
+foreach($country as $key => $value){
+    echo ($key+1).":".$value."<br>";
 }
 
 ?>
