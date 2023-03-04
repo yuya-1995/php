@@ -19,6 +19,7 @@
 // 自己紹介→年齢加算→自己紹介の順にメソッドを動かして年齢を確認してください。
 
 class Person{
+
     public string $name;
     public int $age;
     public string $gendaer;
@@ -28,10 +29,10 @@ class Person{
         $this->age = $age;
         $this->gendaer = $gender;
     }
-        public function selfIntroduction(){
-        echo '私の名前は'.$this->name."です。
-        年齢は".$this->age."歳です。
-        性別は".$this->gendaer.'です。<br>';
+    public function selfIntroduction(){
+    echo '私の名前は'.$this->name."です。
+    年齢は".$this->age."歳です。
+    性別は".$this->gendaer.'です。<br>';
     }
     public function addage(){
         $this->age += 1;
