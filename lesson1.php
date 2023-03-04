@@ -30,9 +30,9 @@ class Person{
         $this->gendaer = $gender;
     }
     public function selfIntroduction(){
-    echo '私の名前は'.$this->name."です。
-    年齢は".$this->age."歳です。
-    性別は".$this->gendaer.'です。<br>';
+        echo '私の名前は'.$this->name."です。
+        年齢は".$this->age."歳です。
+        性別は".$this->gendaer.'です。<br>';
     }
     public function addage(){
         $this->age += 1;
