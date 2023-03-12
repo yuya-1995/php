@@ -7,6 +7,7 @@ class Db {
     public function __construct($dbh = null) {
         if(!$dbh) { // 接続情報が存在しない場合
             try {
+                //データの接続
                 $this->dbh = new PDO('mysql:dbname='.DB_NAME.';host='.DB_HOST, DB_USER, DB_PASSWD);
                 // 接続成功
             } catch (PDOException $e) {

@@ -5,12 +5,13 @@ class Contact extends Db {
     public function __construct($dbh = null) {
         parent::__construct($dbh);
     }
-
+    //登録（create）
     public function insertContact($name,$kana,$tel,$email,$body){
         try{
             $this->dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
             $this->dbh->beginTransaction();
 
+            //データベースへ登録（create）
             $sql = 'INSERT INTO ';
             $sql .= 'contacts (name,kana,tel,email,body) ';
             $sql .= 'VALUES ';
@@ -28,6 +29,30 @@ class Contact extends Db {
             $this->dbh->commit(); //トランザクション
         } catch(Exception $e){
             $this->dbh->rollBack();
+            echo '登録失敗：'. $e->getMessage()."\n";
+            exit();
+        }
+    }
+
+    //表示（read）
+    public function showContact(){
+        try{
+            $this->dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+            $sql = 'SELECT name,kana,tel,email,body FROM `contacts`;';
+            $table_stmt=$this->dbh->prepare($sql); //構文格納
+            $table_stmt->execute();
+
+            while($table_rec = $table_stmt->fetch(PDO::FETCH_ASSOC)){
+                //連想配列すべてを読み出すまでループ
+                echo "<tr>";
+                foreach($table_rec as $val){
+                    //
+                    echo '<td>'.$val.'</td>';
+                }
+                echo "</tr>";
+            }
+        } catch(Exception $e){
             echo '登録失敗：'. $e->getMessage()."\n";
             exit();
         }

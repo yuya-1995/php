@@ -66,10 +66,19 @@
                     <h5>お問合せ内容<h5>
                     <textarea name="body" cols="30" rows="10"></textarea>
                     </div>
-                    <input type="submit" value="確認画面へ">
+                    <input name="show" type="submit" value="確認画面へ">
                 </form>
             </div>
 
+            <!-- //テーブルを表示（read） -->
+            <table>
+            <?php
+            require_once(ROOT_PATH . 'Controllers/CntactController.php');
+                $contact = new ContactController();
+                $contact->showContact();
+            ?>
+            </table>
+            
             <?php include("footer.php") ?>
         </div>
     </div>

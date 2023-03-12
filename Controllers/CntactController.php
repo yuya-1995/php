@@ -16,7 +16,6 @@ class ContactController {
         $dbh = $this->Contact->get_db_handler();
     }
 
-    //データベースへ登録（create）
     public function insertContact(){
         $name = $this->request['post']['name'];
         $kana = $this->request['post']['kana'];
@@ -27,6 +26,11 @@ class ContactController {
             $tel = null;
         }
         $this->Contact->insertContact($name,$kana,$tel,$email,$body);
+    }
+
+    public function showContact(){
+
+        $this->Contact->showContact();
     }
 
     // public function index() {
