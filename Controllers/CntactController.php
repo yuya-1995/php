@@ -28,10 +28,6 @@ class ContactController {
         $this->Contact->insertContact($name,$kana,$tel,$email,$body);
     }
 
-    public function showContact(){
-
-        $this->Contact->showContact();
-    }
 
     // public function index() {
     //     $page = 0;

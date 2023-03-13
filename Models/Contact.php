@@ -48,7 +48,7 @@ class Contact extends Db {
                 echo "<tr>";
                 foreach($table_rec as $val){
                     //
-                    echo '<td>'.$val.'</td>';
+                    echo '<td>'.$val.'　</td>';
                 }
                 echo "</tr>";
             }

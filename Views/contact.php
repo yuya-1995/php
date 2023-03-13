@@ -72,9 +72,14 @@
 
             <!-- //テーブルを表示（read） -->
             <table>
+                <th>名前</th>
+                <th>フリガナ</th>
+                <th>電話番号</th>
+                <th>メールアドレス</th>
+                <th>お問合せ内容</th>
             <?php
             require_once(ROOT_PATH . 'Controllers/CntactController.php');
-                $contact = new ContactController();
+                $contact = new Contact();
                 $contact->showContact();
             ?>
             </table>
