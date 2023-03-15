@@ -1,7 +1,11 @@
 <?php
 require_once(ROOT_PATH . 'Controllers/CntactController.php');
     $contact = new ContactController();
-    $allContact = $contact->allContact(); //全部呼び出す
+    $entryContact = $contact->entryContact($_POST['submit']);
+    if (isset($_POST['edit'])) {
+        $contact->editContact();
+        header('Location: contact.php', true, 307); 
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,60 +51,42 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
             </div>
             </div>
 
-            <!-- フォーム入力画面（入力） -->
+            <!-- フォーム入力画面（編集） -->
 
             <div class="contact">
-                <h2>お問合せ内容（入力）</h2>
-                <p>お問い合わせ内容をご入力の上、「確認画面へ」ボタンをクリックしてください。</p>
-                
-                <form action="confirm.php" method="post">
+                <h2>お問合せ内容（編集）</h2>
+                <p>お問い合わせ内容の変更が完了しましたら、「更新」ボタンをクリックしてください。</p>
+
+                <form action="edit.php" method="post">
+                    <input type="text" name="name" value="<?php echo $entryContact['id'] ?>" readonly>
                     <div>
-                    <label>お名前：<input type="text" name="name" placeholder="例）山田太郎"></label>
+                    <label>
+                        お名前：<input type="text" name="name" placeholder="例）山田太郎" value="<?php echo $entryContact['name'] ?>">
+                    </label>
                     </div>
                     <div>
-                    <label>フリガナ：<input type="text" name="kana" placeholder="例）ヤマダタロウ"></label>
+                    <label>
+                        フリガナ：<input type="text" name="kana" placeholder="例）ヤマダタロウ" value="<?php echo $entryContact['kana']  ?>">
+                    </label>
                     </div>
                     <div>
-                    <label>電話番号：<input type="text" name="tel" placeholder="例）00012345678"></label>
+                    <label>
+                        電話番号：<input type="text" name="tel" placeholder="例）00012345678" value="<?php echo $entryContact['tel']  ?>">
+                    </label>
                     </div>
                     <div>
-                    <label>メールアドレス：<input type="text" name="email" placeholder="例）xxx@xxx"></label>
+                    <label>
+                        メールアドレス：<input type="text" name="email" placeholder="例）xxx@xxx" value="<?php echo $entryContact['email']  ?>">
+                    </label>
                     </div>
                     <div>
                     <h5>お問合せ内容<h5>
-                    <textarea name="body" cols="30" rows="10"></textarea>
+                    <textarea name="body" cols="30" rows="10" ><?php echo $entryContact['body'] ?></textarea>
                     </div>
-                    <input type="submit" value="確認画面へ">
+                    <input type="submit" name="submit" value="更新">
                 </form>
+                <a href="javascript:history.back()" class="fix">キャンセル</a>            
             </div>
-
-            <!-- //テーブルを表示（read） -->
-            <table>
-                <tr>
-                <th>名前</th>
-                <th>フリガナ</th>
-                <th>電話番号</th>
-                <th>メールアドレス</th>
-                <th>お問合せ内容</th>
-                <th>編集</th>
-                </tr>
-
-            <?php foreach($allContact as $item): ?>
-                <tr>
-                    <td><?=htmlspecialchars($item['name'] ,ENT_QUOTES) ?></td>
-                    <td><?=htmlspecialchars($item['kana'] ,ENT_QUOTES) ?></td>
-                    <td><?=htmlspecialchars($item['tel'] ,ENT_QUOTES) ?></td>
-                    <td><?=htmlspecialchars($item['email'] ,ENT_QUOTES) ?></td>
-                    <td><?=nl2br(htmlspecialchars($item['body'] ,ENT_QUOTES)) ?></td>
-                    <td>
-                        <form action=edit.php method="post">
-                            <button type="submit" name=id value=<?= $item['id'] ?>>編集</button>
-                        </form>
-                    </td>
-                </tr> 
-            <?php endforeach; ?>
-
-             </table>
             
             <?php include("footer.php") ?>
         </div>

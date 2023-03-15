@@ -1,10 +1,23 @@
 <?php
 require_once(ROOT_PATH .'Models/Db.php');
 
+/**
+ * Summary of Contact
+ */
 class Contact extends Db {
     public function __construct($dbh = null) {
         parent::__construct($dbh);
     }
+
+    //全呼出
+    public function allContact(){
+        $sql = 'SELECT id,name,kana,tel,email,body FROM `contacts`;';
+        $table_stmt=$this->dbh->prepare($sql); //構文格納
+        $table_stmt->execute();
+        $allContact = $table_stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $allContact;
+    }
+
     //登録（create）
     public function insertContact($name,$kana,$tel,$email,$body){
         try{
@@ -34,29 +47,48 @@ class Contact extends Db {
         }
     }
 
-    //表示（read）
-    public function showContact(){
-        try{
-            $this->dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+   //編集（事前準備）
+    public function entryContact($id){
+        $sql = "SELECT * FROM `contacts` WHERE id = :id ";
+        $stmt = $this->dbh->prepare($sql);
+        $stmt->execute(array(':id' => $id));
+        $user = $stmt->fetch();
 
-            $sql = 'SELECT name,kana,tel,email,body FROM `contacts`;';
-            $table_stmt=$this->dbh->prepare($sql); //構文格納
-            $table_stmt->execute();
+        return $user;
 
-            while($table_rec = $table_stmt->fetch(PDO::FETCH_ASSOC)){
-                //連想配列すべてを読み出すまでループ
-                echo "<tr>";
-                foreach($table_rec as $val){
-                    //
-                    echo '<td>'.$val.'　</td>';
-                }
-                echo "</tr>";
-            }
-        } catch(Exception $e){
-            echo '登録失敗：'. $e->getMessage()."\n";
-            exit();
-        }
+   }
+
+   //編集
+   public function editContact($name,$kana,$tel,$email,$body,$id){
+    try{
+        $this->dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        $this->dbh->beginTransaction();
+
+        $sql = "UPDATE contacts SET name = :name, kana = :kana, tel = :tel body = :body WHERE id = :id ";
+        $stmt = $this->dbh->prepare($sql);
+        $stmt->execute(array(
+            ':name' => $name,
+            ':kana' => $kana,
+            ':tel' => $tel,
+            ':email' => $email,
+            ':body' => $body,
+            ':id' => $id
+        ));
+
+        $this->dbh->commit(); //トランザクション
+
+    } catch(Exception $e){
+        $this->dbh->rollBack();
+        echo '編集失敗：'. $e->getMessage()."\n";
+        exit();
     }
+}
+
+
+   }
+
+
+
 
     /**
      * playersテーブルからすべてデータを取得（20件ごと）
@@ -85,4 +117,3 @@ class Contact extends Db {
     //     $count = $sth->fetchColumn();
     //     return $count;
     // }
-}

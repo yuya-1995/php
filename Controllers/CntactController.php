@@ -16,6 +16,14 @@ class ContactController {
         $dbh = $this->Contact->get_db_handler();
     }
 
+    //全呼出（まず最初）※SELECT分
+    public function allContact(){
+        $allContact = $this->Contact->allContact();
+        return $allContact;
+    }
+
+
+    //登録※insert文
     public function insertContact(){
         $name = $this->request['post']['name'];
         $kana = $this->request['post']['kana'];
@@ -27,6 +35,33 @@ class ContactController {
         }
         $this->Contact->insertContact($name,$kana,$tel,$email,$body);
     }
+
+    //編集(事前準備)※値を取得する（SELECT文）
+    public function entryContact($id){
+        $id = $this->request['post']['id'];
+        $entryContact = $this->Contact->entryContact($id);
+        return $entryContact;
+    }
+
+    //編集※UPDATE分
+    public function editContact(){
+        
+        $name = $this->request['post']['name'];
+        $kana = $this->request['post']['kana'];
+        $tel = $this->request['post']['tel'];
+        $email = $this->request['post']['email'];
+        $body = $this->request['post']['body'];
+        $id = $this->request['post']['id'];
+        if(strlen($tel) === 0){
+            $tel = null;
+        }
+        $this->Contact->editContact($name,$kana,$tel,$email,$body,$id);
+
+    }
+
+
+    
+
 
 
     // public function index() {
