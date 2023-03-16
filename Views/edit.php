@@ -1,8 +1,8 @@
 <?php
 require_once(ROOT_PATH . 'Controllers/CntactController.php');
     $contact = new ContactController();
-    $entryContact = $contact->entryContact($_POST['submit']);
-    if (isset($_POST['edit'])) {
+    $entryContact = $contact->entryContact($_POST['id']);
+    if (isset($_POST['submit'])) {
         $contact->editContact();
         header('Location: contact.php', true, 307); 
     }
@@ -58,7 +58,7 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
                 <p>お問い合わせ内容の変更が完了しましたら、「更新」ボタンをクリックしてください。</p>
 
                 <form action="edit.php" method="post">
-                    <input type="text" name="name" value="<?php echo $entryContact['id'] ?>" readonly>
+                    <input type="hidden" name="id" value="<?php echo $entryContact['id'] ?>" readonly>
                     <div>
                     <label>
                         お名前：<input type="text" name="name" placeholder="例）山田太郎" value="<?php echo $entryContact['name'] ?>">
