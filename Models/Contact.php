@@ -59,19 +59,19 @@ class Contact extends Db {
    }
 
    //編集
-   public function editContact($name,$kana,$tel,$email,$body,$id){
+   public function editContact($editname,$editkana,$edittel,$editemail,$editbody,$id){
     try{
         $this->dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $this->dbh->beginTransaction();
 
-        $sql = "UPDATE contacts SET name = :name, kana = :kana, tel = :tel body = :body WHERE id = :id ";
+        $sql = "UPDATE contacts SET name = :name, kana = :kana, tel = :tel, email = :email, body = :body WHERE id = :id ";
         $stmt = $this->dbh->prepare($sql);
         $stmt->execute(array(
-            ':name' => $name,
-            ':kana' => $kana,
-            ':tel' => $tel,
-            ':email' => $email,
-            ':body' => $body,
+            ':name' => $editname,
+            ':kana' => $editkana,
+            ':tel' => $edittel,
+            ':email' => $editemail,
+            ':body' => $editbody,
             ':id' => $id
         ));
 
@@ -80,6 +80,7 @@ class Contact extends Db {
     } catch(Exception $e){
         $this->dbh->rollBack();
         echo '編集失敗：'. $e->getMessage()."\n";
+        echo $editname,$editkana,$edittel,$editemail,$editbody,$id;
         exit();
     }
 }

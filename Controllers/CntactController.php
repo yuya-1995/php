@@ -46,16 +46,16 @@ class ContactController {
     //編集※UPDATE分
     public function editContact(){
         
-        $name = $this->request['post']['name'];
-        $kana = $this->request['post']['kana'];
-        $tel = $this->request['post']['tel'];
-        $email = $this->request['post']['email'];
-        $body = $this->request['post']['body'];
-        $id = $this->request['post']['id'];
-        if(strlen($tel) === 0){
+        $editname = $this->request['post']['editname'];
+        $editkana = $this->request['post']['editkana'];
+        $edittel = $this->request['post']['edittel'];
+        $editemail = $this->request['post']['editemail'];
+        $editbody = $this->request['post']['editbody'];
+        $editid = $this->request['post']['id'];
+        if(strlen($edittel) === 0){
             $tel = null;
         }
-        $this->Contact->editContact($name,$kana,$tel,$email,$body,$id);
+        $this->Contact->editContact($editname,$editkana,$edittel,$editemail,$editbody,$editid);
 
     }
 
