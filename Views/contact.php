@@ -109,9 +109,13 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
             var result = window.confirm("本当に削除して宜しいでしょうか？");
             if (result) {
                 <?php
+                if(! empty($_POST['deleteid'])){
                 $delete = new ContactController();
                 $delete->deleteContact();
+                }
                 ?>
+            }else{
+                return false;
             }
         })
         </script>
@@ -129,5 +133,4 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
-
 
