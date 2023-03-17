@@ -83,6 +83,7 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
                 <th>メールアドレス</th>
                 <th>お問合せ内容</th>
                 <th>編集</th>
+                <th>削除</th>
                 </tr>
 
             <?php foreach($allContact as $item): ?>
@@ -97,8 +98,23 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
                             <button type="submit" name=id value=<?= $item['id'] ?>>編集</button>
                         </form>
                     </td>
+                    <td>
+                        <form method="post">
+                            <button type="submit" class="delete" name=deleteid value=<?= $item['id'] ?>>削除</button>
+                        </form>
+                    </td>
                 </tr> 
             <?php endforeach; ?>
+        <script>$('button[name="deleteid"]').click(function(){
+            var result = window.confirm("本当に削除して宜しいでしょうか？");
+            if (result) {
+                <?php
+                $delete = new ContactController();
+                $delete->deleteContact();
+                ?>
+            }
+        })
+        </script>
 
              </table>
             

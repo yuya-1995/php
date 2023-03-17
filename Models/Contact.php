@@ -83,7 +83,30 @@ class Contact extends Db {
         echo $editname,$editkana,$edittel,$editemail,$editbody,$id;
         exit();
     }
-}
+    }
+
+    public function deleteContact($deleteid){
+    try {
+        $this->dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        $this->dbh->beginTransaction();
+
+        $sql = " DELETE FROM contacts WHERE id = :id ";
+        $stmt = $this->dbh->prepare($sql);
+        $stmt->execute(array(
+            ':id' => $deleteid
+        ));
+
+
+        $this->dbh->commit(); //トランザクション
+        
+    } catch(Exception $e){
+        $this->dbh->rollBack();
+        echo '編集失敗：'. $e->getMessage()."\n";
+        echo $deleteid;
+        exit();
+    }
+
+    }
 
 
    }

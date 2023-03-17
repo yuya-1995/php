@@ -53,11 +53,18 @@ class ContactController {
         $editbody = $this->request['post']['editbody'];
         $editid = $this->request['post']['id'];
         if(strlen($edittel) === 0){
-            $tel = null;
+            $edittel = null;
         }
         $this->Contact->editContact($editname,$editkana,$edittel,$editemail,$editbody,$editid);
-
     }
+
+    //削除※DELETE文
+    public function deleteContact(){
+        $deleteid = $this->request['post']['deleteid'];
+        $this->Contact->deleteContact($deleteid);
+        
+    }
+
 
 
     
