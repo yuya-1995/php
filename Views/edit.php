@@ -1,11 +1,22 @@
 <?php
 require_once(ROOT_PATH . 'Controllers/CntactController.php');
+
+    if(! empty($_POST['editsubmit'])){
+        //バリデーション
+        $val = new ContactController();
+        $e = $val->editvalContact();
+        $e_count = count($e);
+        if ($e_count == 0) {
+            //データベースの情報を更新
+            $contact = new ContactController();
+            $contact->editContact();
+            header('Location: contact.php', true, 307); 
+        }
+    }
+
     $contact = new ContactController();
     $entryContact = $contact->entryContact($_POST['id']);
-    if (isset($_POST['editsubmit'])) {
-        $contact->editContact();
-        header('Location: contact.php', true, 307); 
-    }
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,31 +68,39 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
                 <h2>お問合せ内容（編集）</h2>
                 <p>お問い合わせ内容の変更が完了しましたら、「更新」ボタンをクリックしてください。</p>
 
+                <?php
+                if(! empty($_POST['editsubmit'])){
+                foreach($e as $msg){
+                    echo "<p>".$msg."</p>";
+                }
+                }
+                ?>
+
                 <form action="edit.php" method="post">
                     <input type="hidden" name="id" value="<?php echo $entryContact['id'] ?>" readonly>
                     <div>
                     <label>
-                        お名前：<input type="text" name="editname" placeholder="例）山田太郎" value="<?php echo $entryContact['name'] ?>">
+                        お名前：<input type="text" name="editname" placeholder="例）山田太郎" value="<?php if(!empty($_POST["editsubmit"])){ echo $_POST['editname']; }else{ echo $entryContact['name']; } ?>">
                     </label>
                     </div>
                     <div>
                     <label>
-                        フリガナ：<input type="text" name="editkana" placeholder="例）ヤマダタロウ" value="<?php echo $entryContact['kana']  ?>">
+                        フリガナ：<input type="text" name="editkana" placeholder="例）ヤマダタロウ" value="<?php if(!empty($_POST["editsubmit"])){ echo $_POST['editkana']; }else{ echo $entryContact['kana']; } ?>">
                     </label>
                     </div>
                     <div>
                     <label>
-                        電話番号：<input type="text" name="edittel" placeholder="例）00012345678" value="<?php echo $entryContact['tel']  ?>">
+                        電話番号：<input type="text" name="edittel" placeholder="例）00012345678" value="<?php if(!empty($_POST["editsubmit"])){ echo $_POST['edittel']; }else{ echo $entryContact['tel']; } ?>">
                     </label>
                     </div>
                     <div>
                     <label>
-                        メールアドレス：<input type="text" name="editemail" placeholder="例）xxx@xxx" value="<?php echo $entryContact['email']  ?>">
+                        メールアドレス：<input type="text" name="editemail" placeholder="例）xxx@xxx" value="<?php if(!empty($_POST["editsubmit"])){ echo $_POST['editemail']; }else{ echo $entryContact['email']; } ?>">
                     </label>
                     </div>
                     <div>
                     <h5>お問合せ内容<h5>
-                    <textarea name="editbody" cols="30" rows="10" ><?php echo $entryContact['body'] ?></textarea>
+                    <textarea name="editbody" cols="30" rows="10" ><?php if(!empty($_POST["editsubmit"])){ echo $_POST['editbody']; }else{ echo $entryContact['body']; } ?></textarea>
                     </div>
                     <input type="submit" name="editsubmit" value="更新">
                 </form>

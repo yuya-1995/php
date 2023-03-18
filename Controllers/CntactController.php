@@ -24,47 +24,77 @@ class ContactController {
 
     //バリデーション（登録）
     public function valContact(){
-        $errors = array();
-        if(!empty($this->request['post']['name'])){
+        $errors = [];
             $name = $this->request['post']['name'];
             if(empty($this->request['post']['name'])){
-                $errors[] = '名前は必須項目です';
+                $errors[] = 'お名前は必須項目です';
             }elseif(mb_strlen($name)>10){
-                $errors[] = '名前は10文字以下でご入力ください';
+                $errors[] = 'お名前は10文字以下でご入力ください';
             }
-        }
 
-        if(!empty($this->request['post']['kana'])){
             $kana = $this->request['post']['kana'];
             if(empty($this->request['post']['kana'])){
                 $errors[] = 'フリガナは必須項目です';
             }elseif(mb_strlen($kana)>10){
                 $errors[] = 'フリガナは10文字以下でご入力ください';
             }
-        }
 
-        if(!empty($this->request['post']['tel'])) {
             $tel = $this->request['post']['tel'];
             if(!preg_match('/^0[0-9]+$/',$tel)){
                 $errors[] = '数字でご入力ください（ハイフンは不要です）';
             }
-        }
-        if(!empty($this->request['post']['email'])){
+
             $email = $this->request['post']['email'];
             if (empty($this->request['post']['email'])) {
                $errors[] = 'メールアドレスは必須項目です' ;
-            }elseif(!preg_match('/^[a-z0-9._*^~-]+@[a-z0-9.-]+$/i',$email)){
+            }
+            elseif(!preg_match('/^[a-z0-9._*^~-]+@[a-z0-9.-]+$/i',$email)){
                 $errors[] ='正しいメールアドレスの形式でご入力ください';
             }
-        }
-        if(!empty($this->request['post']['body'])){
-            $email = $this->request['post']['body'];
+
             if (empty($this->request['post']['body'])) {
                $errors[] = 'お問合せ内容は必須項目です' ;
             }
 
         return $errors;
+    
     }
+
+    public function editvalContact(){
+        $errors = [];
+            $name = $this->request['post']['editname'];
+            if(empty($this->request['post']['editname'])){
+                $errors[] = 'お名前は必須項目です';
+            }elseif(mb_strlen($name)>10){
+                $errors[] = 'お名前は10文字以下でご入力ください';
+            }
+
+            $kana = $this->request['post']['editkana'];
+            if(empty($this->request['post']['editkana'])){
+                $errors[] = 'フリガナは必須項目です';
+            }elseif(mb_strlen($kana)>10){
+                $errors[] = 'フリガナは10文字以下でご入力ください';
+            }
+
+            $tel = $this->request['post']['edittel'];
+            if(!preg_match('/^0[0-9]+$/',$tel)){
+                $errors[] = '数字でご入力ください（ハイフンは不要です）';
+            }
+
+            $email = $this->request['post']['editemail'];
+            if (empty($this->request['post']['editemail'])) {
+               $errors[] = 'メールアドレスは必須項目です' ;
+            }
+            elseif(!preg_match('/^[a-z0-9._*^~-]+@[a-z0-9.-]+$/i',$email)){
+                $errors[] ='正しいメールアドレスの形式でご入力ください';
+            }
+
+            if (empty($this->request['post']['editbody'])) {
+               $errors[] = 'お問合せ内容は必須項目です' ;
+            }
+
+        return $errors;
+    
     }
 
     //登録※insert文
