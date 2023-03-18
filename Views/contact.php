@@ -1,14 +1,20 @@
 <?php
 require_once(ROOT_PATH . 'Controllers/CntactController.php');
 //バリデーション
+    // if(! empty($_POST['val'])){
+    //     $val = new ContactController();
+    //     $e = $val->valContact();
+    //     $e_count = count($e);
+    //     if ($e_count == 0) {
+    //         header('location: confirm.php',true,307);
+    //     }
+    // }
+
+    //js用バリデーション
     if(! empty($_POST['val'])){
-        $val = new ContactController();
-        $e = $val->valContact();
-        $e_count = count($e);
-        if ($e_count == 0) {
-            header('location: confirm.php',true,307);
-        }
+        header('location: confirm.php',true,307);
     }
+
 
 //$deleteが先じゃないとクリックされない1回で
     if(! empty($_POST['deleteid'])){
@@ -71,29 +77,31 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
                 <p>お問い合わせ内容をご入力の上、「確認画面へ」ボタンをクリックしてください。</p>
 
                 <?php
-                if(! empty($_POST['val'])){
-                foreach($e as $msg){
-                    echo "<p>".$msg."</p>";
-                }
-                }
+                // if(! empty($_POST['val'])){
+                // foreach($e as $msg){
+                //     echo "<p>".$msg."</p>";
+                // }
+                // }
                 ?>
+
+                <div id='outMessage'></div>
                 
-                <form action="contact.php" method="post">
+                <form action="contact.php" method="post" onsubmit="return valBtn()">
                     <div>
-                    <label>お名前：<input type="text" name="name" placeholder="例）山田太郎" value=<?php if(! empty($_POST['val'])){ echo $_POST['name']; } ?>></label>
+                    <label>お名前：<input type="text" id="name" name="name" placeholder="例）山田太郎" value=<?php if(! empty($_POST['val'])){ echo $_POST['name']; } ?>></label>
                     </div>
                     <div>
-                    <label>フリガナ：<input type="text" name="kana" placeholder="例）ヤマダタロウ" value=<?php if(! empty($_POST['val'])){ echo $_POST['kana']; } ?>></label>
+                    <label>フリガナ：<input type="text" id="kana" name="kana" placeholder="例）ヤマダタロウ" value=<?php if(! empty($_POST['val'])){ echo $_POST['kana']; } ?>></label>
                     </div>
                     <div>
-                    <label>電話番号：<input type="text" name="tel" placeholder="例）00012345678" value=<?php if(! empty($_POST['val'])){ echo $_POST['tel']; } ?>></label>
+                    <label>電話番号：<input type="text" id="tel" name="tel" placeholder="例）00012345678" value=<?php if(! empty($_POST['val'])){ echo $_POST['tel']; } ?>></label>
                     </div>
                     <div>
-                    <label>メールアドレス：<input type="text" name="email" placeholder="例）xxx@xxx" value=<?php if(! empty($_POST['val'])){ echo $_POST['email']; } ?>></label>
+                    <label>メールアドレス：<input type="text" id="email" name="email" placeholder="例）xxx@xxx" value=<?php if(! empty($_POST['val'])){ echo $_POST['email']; } ?>></label>
                     </div>
                     <div>
                     <h5>お問合せ内容<h5>
-                    <textarea name="body" cols="30" rows="10"><?php if(! empty($_POST['val'])){ echo $_POST['body']; } ?></textarea>
+                    <textarea name="body" id="body" cols="30" rows="10"><?php if(! empty($_POST['val'])){ echo $_POST['body']; } ?></textarea>
                     </div>
                     <input type="submit" name="val" value="確認画面へ">
                 </form>
