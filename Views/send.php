@@ -43,7 +43,7 @@
             </div>
 
 
-            <div class="contact">
+            <div class="contact d-flex justify-content-center">
                <h1>貴重なご意見ありがとうございます。</h1>
             </div>
 

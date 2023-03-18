@@ -1,19 +1,19 @@
 <?php
 require_once(ROOT_PATH . 'Controllers/CntactController.php');
 //バリデーション
-    // if(! empty($_POST['val'])){
-    //     $val = new ContactController();
-    //     $e = $val->valContact();
-    //     $e_count = count($e);
-    //     if ($e_count == 0) {
-    //         header('location: confirm.php',true,307);
-    //     }
-    // }
+    if(! empty($_POST['val'])){
+        $val = new ContactController();
+        $e = $val->valContact();
+        $e_count = count($e);
+        if ($e_count == 0) {
+            header('location: confirm.php',true,307);
+        }
+    }
 
     //js用バリデーション
-    if(! empty($_POST['val'])){
-        header('location: confirm.php',true,307);
-    }
+    // if(! empty($_POST['val'])){
+    //     header('location: confirm.php',true,307);
+    // }
 
 
 //$deleteが先じゃないとクリックされない1回で
@@ -77,16 +77,16 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
                 <p>お問い合わせ内容をご入力の上、「確認画面へ」ボタンをクリックしてください。</p>
           
                 <?php
-                // if(! empty($_POST['val'])){
-                // foreach($e as $msg){
-                //     echo "<p>".$msg."</p>";
-                // }
-                // }
+                if(! empty($_POST['val'])){
+                foreach($e as $msg){
+                    echo "<p>".$msg."</p>";
+                }
+                }
                 ?>
 
                 <div id='outMessage'></div>
                 
-                <form action="contact.php" method="post" onsubmit="return valBtn()">
+                <form action="contact.php" method="post">
                     <div>
                     <label>お名前：<input type="text" id="name" name="name" placeholder="例）山田太郎" value=<?php if(! empty($_POST['val'])){ echo $_POST['name']; } ?>></label>
                     </div>
