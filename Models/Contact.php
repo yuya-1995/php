@@ -85,6 +85,8 @@ class Contact extends Db {
     }
     }
 
+
+    //削除
     public function deleteContact($deleteid){
     try {
         $this->dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);

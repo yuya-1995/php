@@ -22,6 +22,50 @@ class ContactController {
         return $allContact;
     }
 
+    //バリデーション（登録）
+    public function valContact(){
+        $errors = array();
+        if(!empty($this->request['post']['name'])){
+            $name = $this->request['post']['name'];
+            if(empty($this->request['post']['name'])){
+                $errors[] = '名前は必須項目です';
+            }elseif(mb_strlen($name)>10){
+                $errors[] = '名前は10文字以下でご入力ください';
+            }
+        }
+
+        if(!empty($this->request['post']['kana'])){
+            $kana = $this->request['post']['kana'];
+            if(empty($this->request['post']['kana'])){
+                $errors[] = 'フリガナは必須項目です';
+            }elseif(mb_strlen($kana)>10){
+                $errors[] = 'フリガナは10文字以下でご入力ください';
+            }
+        }
+
+        if(!empty($this->request['post']['tel'])) {
+            $tel = $this->request['post']['tel'];
+            if(!preg_match('/^0[0-9]+$/',$tel)){
+                $errors[] = '数字でご入力ください（ハイフンは不要です）';
+            }
+        }
+        if(!empty($this->request['post']['email'])){
+            $email = $this->request['post']['email'];
+            if (empty($this->request['post']['email'])) {
+               $errors[] = 'メールアドレスは必須項目です' ;
+            }elseif(!preg_match('/^[a-z0-9._*^~-]+@[a-z0-9.-]+$/i',$email)){
+                $errors[] ='正しいメールアドレスの形式でご入力ください';
+            }
+        }
+        if(!empty($this->request['post']['body'])){
+            $email = $this->request['post']['body'];
+            if (empty($this->request['post']['body'])) {
+               $errors[] = 'お問合せ内容は必須項目です' ;
+            }
+
+        return $errors;
+    }
+    }
 
     //登録※insert文
     public function insertContact(){
@@ -43,7 +87,7 @@ class ContactController {
         return $entryContact;
     }
 
-    //編集※UPDATE分
+    //編集※UPDATE文
     public function editContact(){
         
         $editname = $this->request['post']['editname'];
@@ -62,12 +106,7 @@ class ContactController {
     public function deleteContact(){
         $deleteid = $this->request['post']['deleteid'];
         $this->Contact->deleteContact($deleteid);
-        
     }
-
-
-
-    
 
 
 

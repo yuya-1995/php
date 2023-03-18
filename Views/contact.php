@@ -1,5 +1,10 @@
 <?php
 require_once(ROOT_PATH . 'Controllers/CntactController.php');
+    if(! empty($_POST['deleteid'])){
+        $delete = new ContactController();
+        $delete->deleteContact();
+    }
+
     $contact = new ContactController();
     $allContact = $contact->allContact(); //全部呼び出す
 ?>
@@ -16,6 +21,7 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css" />
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <script defer src="../js/index.js"></script>
+    <script defer src="../js/myscript.js"></script>
 </head>
 <body>
     <div class="main">
@@ -99,26 +105,12 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
                         </form>
                     </td>
                     <td>
-                        <form method="post">
-                            <button type="submit" class="delete" name=deleteid value=<?= $item['id'] ?>>削除</button>
+                        <form action="contact.php" method="post" onsubmit="return deleteBtn()">
+                            <button type="submit" class="deleteBtn" name="deleteid"  value=<?= $item['id'] ?>>削除</button>
                         </form>
                     </td>
                 </tr> 
             <?php endforeach; ?>
-        <script>$('button[name="deleteid"]').click(function(){
-            var result = window.confirm("本当に削除して宜しいでしょうか？");
-            if (result) {
-                <?php
-                if(! empty($_POST['deleteid'])){
-                $delete = new ContactController();
-                $delete->deleteContact();
-                }
-                ?>
-            }else{
-                return false;
-            }
-        })
-        </script>
 
              </table>
             
@@ -133,4 +125,3 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
-
