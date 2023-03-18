@@ -71,11 +71,11 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
             </div>
 
             <!-- フォーム入力画面（入力） -->
-
-            <div class="contact">
+            <div class="contact d-flex justify-content-center">
+                <div>
                 <h2>お問合せ内容（入力）</h2>
                 <p>お問い合わせ内容をご入力の上、「確認画面へ」ボタンをクリックしてください。</p>
-
+          
                 <?php
                 // if(! empty($_POST['val'])){
                 // foreach($e as $msg){
@@ -106,8 +106,10 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
                     <input type="submit" name="val" value="確認画面へ">
                 </form>
             </div>
+            </div>
 
             <!-- //テーブルを表示（read） -->
+            <div class="contact d-flex justify-content-center">
             <table>
                 <tr>
                 <th>名前</th>
@@ -140,7 +142,7 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
             <?php endforeach; ?>
 
              </table>
-            
+             </div>
             <?php include("footer.php") ?>
         </div>
     </div>

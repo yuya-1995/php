@@ -72,7 +72,8 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
 
             <!-- フォーム入力画面（編集） -->
 
-            <div class="contact">
+            <div class="contact d-flex justify-content-center">
+                <div>
                 <h2>お問合せ内容（編集）</h2>
                 <p>お問い合わせ内容の変更が完了しましたら、「更新」ボタンをクリックしてください。</p>
 
@@ -115,6 +116,7 @@ require_once(ROOT_PATH . 'Controllers/CntactController.php');
                     <input type="submit" name="editsubmit" value="更新">
                 </form>
                 <a href="javascript:history.back()" class="fix">キャンセル</a>            
+            </div>
             </div>
             
             <?php include("footer.php") ?>
